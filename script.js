@@ -1,0 +1,119 @@
+let current_status = null;
+
+let active_button = document.querySelector('.status-is-active');
+let pending_button = document.querySelector('.status-is-pending');
+let closed_button = document.querySelector('.status-is-closed');
+let add_button = document.querySelector('.status-add');
+
+let menu_active = document.querySelector('.main-menu-list-active');
+let menu_pending = document.querySelector('.main-menu-list-pending');
+let menu_closed = document.querySelector('.main-menu-list-closed');
+
+let active_section = document.querySelector('.section-todo-list-active');
+let pending_section = document.querySelector('.section-todo-list-pending');
+let closed_section = document.querySelector('.section-todo-list-closed');
+
+function append_element(){
+    if (current_status === 'active') {
+        create_element(active_section, menu_active, active_button);
+        delite_bigger_button(active_button);
+    } else if (current_status === 'pending') {
+        create_element(pending_section, menu_pending, pending_button);
+        delite_bigger_button(pending_button);
+    } else if (current_status === 'closed') {
+        create_element(closed_section, menu_closed, closed_button);
+        delite_bigger_button(closed_button);
+    }
+    
+}
+
+function create_element(event_section, menu_nav_section, somthing_button){
+    let task = document.querySelector('.task').value;
+    let start_date = document.querySelector('.start-date').value;
+    let end_date = document.querySelector('.end-date').value;
+
+    menu_nav_section.classList.remove('visually-hidden');
+    let div = document.createElement('div');
+    div.className = 'main-background-task-item button black-button';
+    event_section.append(div);
+
+    let ul = document.createElement('ul');
+    ul.className = 'main-task-list';
+    div.append(ul);
+
+    let li_name = document.createElement('li');
+    li_name.className = 'main-task-name';
+    li_name.textContent = task;
+    ul.append(li_name);
+
+    let li_start_date = document.createElement('li');
+    li_start_date.className = 'main-task-start-date center';
+    li_start_date.textContent = start_date;
+    ul.append(li_start_date);
+
+    let li_end_date = document.createElement('li');
+    li_end_date.className = 'main-task-end-date center';
+    li_end_date.textContent = end_date;
+    ul.append(li_end_date);
+
+    let li_status = document.createElement('li');
+    li_status.className = 'main-task-status center';
+
+    let li_status_button = document.createElement('button');
+    li_status_button.type = 'button';
+    li_status_button.textContent = somthing_button.textContent;
+
+    if (current_status === 'active') {
+        li_status_button.className = 'main-task-status-button button green-active';
+    } else if (current_status === 'pending') {
+        li_status_button.className = 'main-task-status-button button yellow-pending';
+    } else if (current_status === 'closed') {
+        li_status_button.className = 'main-task-status-button button red-closed';
+    }
+
+    ul.append(li_status);
+    li_status.append(li_status_button);
+
+    let li_edit = document.createElement('li');
+    li_edit.className = 'main-edit-item center';
+    let li_edit_button = document.createElement('button');
+    li_edit_button.type = 'button';
+    li_edit_button.className = 'main-edit-item-img';
+    ul.append(li_edit);
+    li_edit.append(li_edit_button);
+
+    let li_trash = document.createElement('li');
+    li_trash.className = 'main-trash-item center';
+    let li_trash_button = document.createElement('button');
+    li_trash_button.type = 'button';
+    li_trash_button.className = 'main-trash-item-img';
+    ul.append(li_trash);
+    li_trash.append(li_trash_button);
+}
+
+function delite_bigger_button(somthing_button) {
+    somthing_button.style.setProperty('width', '90px', 'important');
+    somthing_button.style.setProperty('height', '45px', 'important');
+}
+
+function bigger_button(somthing_button) {
+    setTimeout(() => {
+        somthing_button.style.setProperty('width', '100px', 'important');
+        somthing_button.style.setProperty('height', '50px', 'important');
+    }, 5);
+}
+
+
+active_button.addEventListener('click', () => {
+    current_status = 'active';
+    bigger_button(active_button);
+});
+pending_button.addEventListener('click', () => {
+    current_status = 'pending';
+    bigger_button(pending_button);
+});
+closed_button.addEventListener('click', () => {
+    current_status = 'closed';
+    bigger_button(closed_button);
+});
+add_button.addEventListener('click', append_element);

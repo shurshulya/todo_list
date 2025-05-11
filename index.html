@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO list</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-logo">
+                <img class="header-logo-img" src="./icons/logo.svg" alt="TODO list logo">
+            </div>
+            <section class="section-input">
+                <ul class="header-information-task-list">
+                    <li class="header-information-task-item">
+                        <input class="task button black-button" type="text" placeholder="Enter task"></li>
+                    <li class="header-information-task-item">
+                        <input class="start-date button black-button" type="datetime" placeholder="Enter start date"></li>
+                    <li class="header-information-task-item">
+                        <input class="end-date button black-button" type="datetime" placeholder="Enter end date"></li>
+                </ul>
+                <ul class="information-task-status-list">
+                    <li class="information-task-status-item">
+                        <button class="status-is-active button green-active" type="button">Active</button></li>
+                    <li class="information-task-status-item">
+                        <button class="status-is-pending button yellow-pending" type="button">Pending</button></li>
+                    <li class="information-task-status-item">
+                        <button class="status-is-closed button red-closed" type="button">Closed</button></li>
+                    <li class="information-task-status-item">
+                        <button class="status-add button blue-add" type="button">Add</button></li>
+                </ul>
+            </section>
+        </header>
+        <main class="main">
+            <section class="section-todo-list-active">
+                <button class="partition-active-button button green-active" type="button">Active</button>
+                <ul class="main-menu-list-active visually-hidden">
+                    <li class="main-menu-start-item">start date</li>
+                    <li class="main-menu-end-item">end date</li>
+                    <li class="main-menu-status-item">status</li>
+                </ul>
+                <!-- <div class="main-background-task-item button black-button">
+                    <ul class="main-task-list">
+                        <li class="main-task-name">текст из инпута</li>
+                        <li class="main-task-start-date center">дата начала</li>
+                        <li class="main-task-end-date center">дата окончания</li>
+                        <li class="main-task-status center">
+                            <button class="main-task-status-button button green-active" type="button">Active</button></li>
+                        <li class="main-edit-item center">
+                            <button class="main-edit-item-img" type="button"></button></li>
+                        <li class="main-trash-item center">
+                            <button class="main-trash-item-img" type="button"></button></li>
+                    </ul>
+                </div> -->
+            </section>
+            <section class="section-todo-list-pending">
+                <button class="partition-pending-button button yellow-pending" type="button">Pending</button>
+                <ul class="main-menu-list-pending visually-hidden">
+                    <li class="main-menu-start-item">start date</li>
+                    <li class="main-menu-end-item">end date</li>
+                    <li class="main-menu-status-item">status</li>
+                </ul>
+            </section>
+            <section class="section-todo-list-closed">
+                <button class="partition-closed-button button red-closed" type="button">closed</button>
+                <ul class="main-menu-list-closed visually-hidden">
+                    <li class="main-menu-start-item">start date</li>
+                    <li class="main-menu-end-item">end date</li>
+                    <li class="main-menu-status-item">status</li>
+                </ul>
+
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
