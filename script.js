@@ -1,4 +1,4 @@
-let current_status = null;
+let current_status = null;  
 
 let active_button = document.querySelector('.status-is-active');
 let pending_button = document.querySelector('.status-is-pending');
@@ -12,6 +12,7 @@ let menu_closed = document.querySelector('.main-menu-list-closed');
 let active_section = document.querySelector('.section-todo-list-active');
 let pending_section = document.querySelector('.section-todo-list-pending');
 let closed_section = document.querySelector('.section-todo-list-closed');
+
 
 function append_element(){
     if (current_status === 'active') {
@@ -89,31 +90,31 @@ function create_element(event_section, menu_nav_section, somthing_button){
     li_trash_button.className = 'main-trash-item-img';
     ul.append(li_trash);
     li_trash.append(li_trash_button);
+
 }
 
-function delite_bigger_button(somthing_button) {
-    somthing_button.style.setProperty('width', '90px', 'important');
-    somthing_button.style.setProperty('height', '45px', 'important');
+function delite_task(section) {
+    section.addEventListener('click', (event) => {
+        if(event.target.classList.contains('main-trash-item-img')){
+            const task_item = event.target.closest('.main-background-task-item');
+            if(task_item){
+                task_item.remove();
+            }
+        }
+});
 }
 
-function bigger_button(somthing_button) {
-    setTimeout(() => {
-        somthing_button.style.setProperty('width', '100px', 'important');
-        somthing_button.style.setProperty('height', '50px', 'important');
-    }, 5);
-}
-
+delite_task(active_section);
+delite_task(pending_section);
+delite_task(closed_section);
 
 active_button.addEventListener('click', () => {
     current_status = 'active';
-    bigger_button(active_button);
 });
 pending_button.addEventListener('click', () => {
     current_status = 'pending';
-    bigger_button(pending_button);
 });
 closed_button.addEventListener('click', () => {
     current_status = 'closed';
-    bigger_button(closed_button);
 });
 add_button.addEventListener('click', append_element);

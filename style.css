@@ -359,6 +359,13 @@
     height: 45px;
 }
 
+.status-is-active:focus,
+.status-is-closed:focus,
+.status-is-pending:focus {
+  width: 115px;
+  height: 50px;
+}
+
 .status-add{
     display: flex;
     align-items: center;
