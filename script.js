@@ -5,30 +5,32 @@ let pending_button = document.querySelector('.status-is-pending');
 let closed_button = document.querySelector('.status-is-closed');
 let add_button = document.querySelector('.status-add');
 
-let menu_active = document.querySelector('.main-menu-list-active');
-let menu_pending = document.querySelector('.main-menu-list-pending');
-let menu_closed = document.querySelector('.main-menu-list-closed');
+let menu_in_active_section = document.querySelector('.main-menu-list-active');
+let menu_in_pending_section = document.querySelector('.main-menu-list-pending');
+let menu_in_closed_section = document.querySelector('.main-menu-list-closed');
+
+let munu_button_active_section = document.querySelector('.partition-active-button');
+let munu_button_pending_section = document.querySelector('.partition-pending-button');
+let munu_button_closed_section = document.querySelector('.partition-closed-button');
 
 let active_section = document.querySelector('.section-todo-list-active');
 let pending_section = document.querySelector('.section-todo-list-pending');
 let closed_section = document.querySelector('.section-todo-list-closed');
 
 
+
 function append_element(){
     if (current_status === 'active') {
-        create_element(active_section, menu_active, active_button);
-        delite_bigger_button(active_button);
+        create_element(active_section, menu_in_active_section, active_button);
     } else if (current_status === 'pending') {
-        create_element(pending_section, menu_pending, pending_button);
-        delite_bigger_button(pending_button);
+        create_element(pending_section, menu_in_pending_section, pending_button);
     } else if (current_status === 'closed') {
-        create_element(closed_section, menu_closed, closed_button);
-        delite_bigger_button(closed_button);
+        create_element(closed_section, menu_in_closed_section, closed_button);
     }
     
 }
 
-function create_element(event_section, menu_nav_section, somthing_button){
+function create_element(section, menu_nav_section, somthing_button){
     let task = document.querySelector('.task').value;
     let start_date = document.querySelector('.start-date').value;
     let end_date = document.querySelector('.end-date').value;
@@ -36,7 +38,7 @@ function create_element(event_section, menu_nav_section, somthing_button){
     menu_nav_section.classList.remove('visually-hidden');
     let div = document.createElement('div');
     div.className = 'main-background-task-item button black-button';
-    event_section.append(div);
+    section.append(div);
 
     let ul = document.createElement('ul');
     ul.className = 'main-task-list';
@@ -90,10 +92,9 @@ function create_element(event_section, menu_nav_section, somthing_button){
     li_trash_button.className = 'main-trash-item-img';
     ul.append(li_trash);
     li_trash.append(li_trash_button);
-
 }
 
-function delite_task(section) {
+function delite_task(section, menu_nav_section) {
     section.addEventListener('click', (event) => {
         if(event.target.classList.contains('main-trash-item-img')){
             const task_item = event.target.closest('.main-background-task-item');
@@ -101,12 +102,24 @@ function delite_task(section) {
                 task_item.remove();
             }
         }
+        if(section.querySelectorAll('.main-background-task-item').length === 0){
+            menu_nav_section.classList.add('visually-hidden');
+        }
 });
 }
 
-delite_task(active_section);
-delite_task(pending_section);
-delite_task(closed_section);
+function close_task(section, menu_nav_section) {
+    menu_nav_section.classList.add('visually-hidden');
+    let n = +section.querySelectorAll('.main-background-task-item').length
+    for(let i = 0; i < n; i++){
+        section.children[i].classList.add('visually-hidden');
+    }
+
+}
+
+delite_task(active_section, menu_in_active_section);
+delite_task(pending_section, menu_in_pending_section);
+delite_task(closed_section, menu_in_closed_section);
 
 active_button.addEventListener('click', () => {
     current_status = 'active';
@@ -118,3 +131,11 @@ closed_button.addEventListener('click', () => {
     current_status = 'closed';
 });
 add_button.addEventListener('click', append_element);
+
+munu_button_active_section.addEventListener('click', () => {
+    close_task(active_section, menu_in_active_section)
+});
+munu_button_pending_section.addEventListener('click', () => {
+    close_task(pending_section, menu_in_pending_section)});
+menu_in_closed_section.addEventListener('click', () => {
+    close_task(closed_section, menu_in_closed_section)});
