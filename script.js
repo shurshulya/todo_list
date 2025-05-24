@@ -1,4 +1,5 @@
-let current_status = null;  
+let current_status = null;
+let task_to_move = null;   
 
 let active_button = document.querySelector('.status-is-active');
 let pending_button = document.querySelector('.status-is-pending');
@@ -9,9 +10,9 @@ let menu_in_active_section = document.querySelector('.main-menu-list-active');
 let menu_in_pending_section = document.querySelector('.main-menu-list-pending');
 let menu_in_closed_section = document.querySelector('.main-menu-list-closed');
 
-let munu_button_active_section = document.querySelector('.partition-active-button');
-let munu_button_pending_section = document.querySelector('.partition-pending-button');
-let munu_button_closed_section = document.querySelector('.partition-closed-button');
+let menu_button_active_section = document.querySelector('.partition-active-button');
+let menu_button_pending_section = document.querySelector('.partition-pending-button');
+let menu_button_closed_section = document.querySelector('.partition-closed-button');
 
 let active_section = document.querySelector('.section-todo-list-active');
 let pending_section = document.querySelector('.section-todo-list-pending');
@@ -30,10 +31,12 @@ function append_element(){
     
 }
 
-function create_element(section, menu_nav_section, somthing_button){
+function create_element(section, menu_nav_section, button){
     let task = document.querySelector('.task').value;
-    let start_date = document.querySelector('.start-date').value;
-    let end_date = document.querySelector('.end-date').value;
+    let start_date = document.querySelector('.start-date').value.split('T').reverse();
+    start_date = start_date[0] +' ' + start_date[1].split('-').reverse().join('.');
+    let end_date = document.querySelector('.end-date').value.split('T').reverse();
+    end_date = end_date[0] +' ' + end_date[1].split('-').reverse().join('.');
 
     menu_nav_section.classList.remove('visually-hidden');
     let div = document.createElement('div');
@@ -64,7 +67,7 @@ function create_element(section, menu_nav_section, somthing_button){
 
     let li_status_button = document.createElement('button');
     li_status_button.type = 'button';
-    li_status_button.textContent = somthing_button.textContent;
+    li_status_button.textContent = button.textContent;
 
     if (current_status === 'active') {
         li_status_button.className = 'main-task-status-button button green-active';
@@ -108,11 +111,24 @@ function delite_task(section, menu_nav_section) {
 });
 }
 
-function close_task(section, menu_nav_section) {
-    menu_nav_section.classList.add('visually-hidden');
-    let n = +section.querySelectorAll('.main-background-task-item').length
-    for(let i = 0; i < n; i++){
-        section.children[i].classList.add('visually-hidden');
+function close_or_open_task_in_section(section, menu_nav_section, button, 
+    class_button_add, class_button_remove ) {
+    const task_item = section.querySelectorAll('.main-background-task-item');
+    
+    if(task_item[0].classList.contains('visually-hidden')){
+        button.classList.add(class_button_add);
+        button.classList.remove(class_button_remove);
+        menu_nav_section.classList.remove('visually-hidden');
+        for(let i = 0; i < task_item.length; i++){
+            task_item[i].classList.remove('visually-hidden');
+        }
+    }else {
+        menu_nav_section.classList.add('visually-hidden');
+        button.classList.remove(class_button_add);
+        button.classList.add(class_button_remove);
+        for(let i = 0; i < task_item.length; i++){
+             task_item[i].classList.add('visually-hidden');
+        }
     }
 
 }
@@ -120,6 +136,21 @@ function close_task(section, menu_nav_section) {
 delite_task(active_section, menu_in_active_section);
 delite_task(pending_section, menu_in_pending_section);
 delite_task(closed_section, menu_in_closed_section);
+
+function remove_task(section) {
+    section.addEventListener('click', (event) => {
+        if(event.target.classList.contains('main-edit-item-img')){
+            task_to_move = event.target.closest('.main-background-task-item');
+            // const copy = task_item.cloneNode(true);
+            task_to_move.style.border = '2px dashed blue';
+            
+        }
+    })
+}
+
+remove_task(active_section);
+remove_task(pending_section);
+remove_task(closed_section);
 
 active_button.addEventListener('click', () => {
     current_status = 'active';
@@ -132,10 +163,15 @@ closed_button.addEventListener('click', () => {
 });
 add_button.addEventListener('click', append_element);
 
-munu_button_active_section.addEventListener('click', () => {
-    close_task(active_section, menu_in_active_section)
+menu_button_active_section.addEventListener('click', () => {
+    close_or_open_task_in_section(active_section, menu_in_active_section, 
+        menu_button_active_section, 'green-active', 'partition-size-clicked');
 });
-munu_button_pending_section.addEventListener('click', () => {
-    close_task(pending_section, menu_in_pending_section)});
-menu_in_closed_section.addEventListener('click', () => {
-    close_task(closed_section, menu_in_closed_section)});
+menu_button_pending_section.addEventListener('click', () => {
+    close_or_open_task_in_section(pending_section, menu_in_pending_section, 
+        menu_button_pending_section, 'yellow-pending', 'partition-size-clicked');
+});
+menu_button_closed_section.addEventListener('click', () => {
+    close_or_open_task_in_section(closed_section, menu_in_closed_section, 
+        menu_button_closed_section, 'red-closed', 'partition-size-clicked');
+});

@@ -17,9 +17,9 @@
                     <li class="header-information-task-item">
                         <input class="task button black-button" type="text" placeholder="Enter task"></li>
                     <li class="header-information-task-item">
-                        <input class="start-date button black-button" type="datetime" placeholder="Enter start date"></li>
+                        <input class="start-date button black-button" type="datetime-local" placeholder="Enter start date"></li>
                     <li class="header-information-task-item">
-                        <input class="end-date button black-button" type="datetime" placeholder="Enter end date"></li>
+                        <input class="end-date button black-button" type="datetime-local" placeholder="Enter end date"></li>
                 </ul>
                 <ul class="information-task-status-list">
                     <li class="information-task-status-item">
@@ -35,7 +35,7 @@
         </header>
         <main class="main">
             <section class="section-todo-list-active">
-                <button class="partition-active-button button green-active" type="button">Active</button>
+                <button class="partition-active-button partition-size button green-active" type="button">Active</button>
                 <ul class="main-menu-list-active visually-hidden">
                     <li class="main-menu-start-item">start date</li>
                     <li class="main-menu-end-item">end date</li>
@@ -53,10 +53,17 @@
                         <li class="main-trash-item center">
                             <button class="main-trash-item-img" type="button"></button></li>
                     </ul>
+                </div>
+                <div class="change-status">
+                    <ul class="change-status-list">
+                        <li class="change-status-item"><button class="change-status-active green-active">active</button></li>
+                        <li class="change-status-item"><button class="change-status-pending yellow-pending">pending</button></li>
+                        <li class="change-status-item"><button class="change-status-closed red-closed">closed</button></li>
+                    </ul>
                 </div> -->
             </section>
             <section class="section-todo-list-pending">
-                <button class="partition-pending-button button yellow-pending" type="button">Pending</button>
+                <button class="partition-pending-button partition-size button yellow-pending" type="button">Pending</button>
                 <ul class="main-menu-list-pending visually-hidden">
                     <li class="main-menu-start-item">start date</li>
                     <li class="main-menu-end-item">end date</li>
@@ -64,7 +71,7 @@
                 </ul>
             </section>
             <section class="section-todo-list-closed">
-                <button class="partition-closed-button button red-closed" type="button">closed</button>
+                <button class="partition-closed-button partition-size button red-closed" type="button">closed</button>
                 <ul class="main-menu-list-closed visually-hidden">
                     <li class="main-menu-start-item">start date</li>
                     <li class="main-menu-end-item">end date</li>
